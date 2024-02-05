@@ -28,19 +28,19 @@ pipeline {
         stage('docker push image') {
             steps {
                 script {
-                    docker.withRegistry('', 'dockerhub') {
+                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
                         dockerImage.push()
                         dockerImage.push('latest')
                     }
                 }
             }
-			   stage('Get Kubernetes Nodes') {
+        }
+        stage('Get Kubernetes Nodes') {
             steps {
                 script {
                     sh 'kubectl get nodes -o wide'
                 }
             }
         }
-        }
-    } 
+    }
 }
