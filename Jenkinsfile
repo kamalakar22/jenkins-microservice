@@ -18,7 +18,17 @@ pipeline {
                 echo "Test"
             }
         }
-    }
+    } post{
+		always {
+			echi 'I am awesome. I run always'
+		}
+		success {
+			echi 'I run when you are successful'
+		}
+		failure {
+			echi 'I run when you fail'
+		}
+	}
 }
 
 
