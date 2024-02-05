@@ -21,7 +21,7 @@ pipeline {
 		stage('docker build image'){
 			steps{
 				script{
-					docker.build("kamalakar2210/hello-world-nodejs:$(env.BUILD_TAG)")
+					docker.build("kamalakar2210/hello-world-nodejs:${env.BUILD_TAG}")
 				}
 			}
 		}
