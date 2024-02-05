@@ -18,7 +18,8 @@ pipeline {
                 echo "Test"
             }
         }
-    } post{
+    } 
+	post{
 		always {
 			echi 'I am awesome. I run always'
 		}
