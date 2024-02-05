@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh 'mvn --version'
                 sh 'docker --version'
-                sh 'kubectl version'
+                
             }
         }
         stage('Build') {
