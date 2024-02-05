@@ -21,13 +21,13 @@ pipeline {
     } 
 	post{
 		always {
-			echi 'I am awesome. I run always'
+			ech0 'I am awesome. I run always'
 		}
 		success {
-			echi 'I run when you are successful'
+			ech0 'I run when you are successful'
 		}
 		failure {
-			echi 'I run when you fail'
+			ech0 'I run when you fail'
 		}
 	}
 }
