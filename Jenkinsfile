@@ -1,32 +1,22 @@
 pipeline {
     agent any
-	environment{
-		dockerHOME = tool 'myDocker'
-		mavenHOME = tool 'myMaven'
-		PATH = "${dockerHOME}/bin:${mavenHOME}/bin:${PATH}"
-	}
+    environment {
+        dockerHOME = tool 'myDocker'
+        mavenHOME = tool 'myMaven'
+        PATH = "${dockerHOME}/bin:${mavenHOME}/bin:${PATH}"
+    }
 
     stages {
         stage('version') {
             steps {
                 sh 'mvn --version'
-				sh 'docker --version'
+                sh 'docker --version'
             }
         }
-		stage('Build') {
+        stage('Build') {
             steps {
                 sh "mvn clean install -X"
-				 
-				
             }
         }
-		
     } 
-	
 }
-
-
-
-
-
-
