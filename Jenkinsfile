@@ -34,6 +34,13 @@ pipeline {
                     }
                 }
             }
+			   stage('Get Kubernetes Nodes') {
+            steps {
+                script {
+                    sh 'kubectl get nodes -o wide'
+                }
+            }
+        }
         }
     } 
 }
