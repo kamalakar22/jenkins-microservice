@@ -1,5 +1,5 @@
 pipeline {
-    agent { docker { image 'maven:13.8'}}
+    agent { docker { image 'node:13.8'}}
     stages {
         stage('GIT') {
             steps {
