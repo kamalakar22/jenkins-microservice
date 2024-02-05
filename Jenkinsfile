@@ -15,21 +15,12 @@ pipeline {
         }
 		stage('Build') {
             steps {
-                sh "mvn clean compile"
+                sh "mvn clean install"
 				 
 				
             }
         }
-		stage('Test') {
-            steps {
-                sh "mvn test"	
-            }
-        }
-		stage('Integration-Test') {
-            steps {
-                sh "mvn failsafe:integration-test failsafe:verify"	
-            }
-        }
+		
     } 
 	
 }
