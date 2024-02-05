@@ -18,6 +18,13 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
+		stage('docker build image'){
+			steps{
+				script{
+					docker.build("kamalakar2210/hello-world-nodejs:$(env.BUILD_TAG)")
+				}
+			}
+		}
 		
     } 
 }
