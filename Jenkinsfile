@@ -1,27 +1,21 @@
 pipeline {
-    agent { docker { image 'node:13.8'}}
+    agent any
+	environment{
+		dockerHOME = tool 'myDocker'
+		mavenHOME = tool 'myMaven'
+		PATH = "$dockerHOME/bin:$mavenHOME/bin$PATH"
+	}
+
     stages {
         stage('GIT') {
             steps {
-                git branch: 'main', url: 'https://github.com/kamalakar22/jenkins-microservice.git'
-            }
-        }
-
-        stage('Build') {
-            steps {
-				sh 'node --version'
-                echo "Build"
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo "Test"
+                sh 'mvn --version'
+				sh 'docker --version'
             }
         }
     } 
 	
-	}
+}
 
 
 
