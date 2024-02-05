@@ -18,13 +18,22 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-		stage('docker build image'){
-			steps{
-				script{
-					docker.build("kamalakar2210/hello-world-nodejs:${env.BUILD_TAG}")
-				}
-			}
-		}
-		
+        stage('docker build image') {
+            steps {
+                script {
+                    dockerImage = docker.build("kamalakar2210/hello-world-nodejs:${env.BUILD_TAG}")
+                }
+            }
+        }
+        stage('docker push image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub') {
+                        dockerImage.push()
+                        dockerImage.push('latest')
+                    }
+                }
+            }
+        }
     } 
 }
