@@ -3,7 +3,7 @@ pipeline {
     environment {
         dockerHOME = tool 'myDocker'
         mavenHOME = tool 'myMaven'
-        PATH = "${dockerHOME}/bin:${mavenHOME}/bin:${PATH}"
+        PATH = "${dockerHOME}/bin:${mavenHOME}/bin:/usr/local/bin:${PATH}"
     }
 
     stages {
@@ -11,6 +11,7 @@ pipeline {
             steps {
                 sh 'mvn --version'
                 sh 'docker --version'
+                sh 'kubectl version'
             }
         }
         stage('Build') {
@@ -37,9 +38,7 @@ pipeline {
         }
         stage('Get Kubernetes Nodes') {
             steps {
-                script {
-                    sh 'kubectl get nodes -o wide'
-                }
+                sh 'kubectl get nodes -o wide'
             }
         }
     }
