@@ -11,7 +11,6 @@ pipeline {
             steps {
                 sh 'mvn --version'
                 sh 'docker --version'
-                
             }
         }
         stage('Build') {
@@ -36,10 +35,11 @@ pipeline {
                 }
             }
         }
-        stage('Get Kubernetes Nodes') {
+        stage('Archive Artifacts') {
             steps {
-                sh 'kubectl get nodes -o wide'
+                archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
     }
 }
+
