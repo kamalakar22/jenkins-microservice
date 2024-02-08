@@ -6,6 +6,8 @@ pipeline {
         dockerHOME = tool 'myDocker'
         mavenHOME = tool 'myMaven'
         PATH = "${dockerHOME}/bin:${mavenHOME}/bin:/usr/local/bin:${PATH}"
+	SONAR_HOST_URL = 'http://localhost:9000/'
+        SONAR_TOKEN = credentials('squ_a96b052f08c7788256a6209a0b4384e5153bb65c') 
     }
 
     stages {
