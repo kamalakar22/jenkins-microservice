@@ -1,30 +1,34 @@
+		
+		
 pipeline {
     agent any
-    
+    //environment {
+        //dockerHOME = tool 'myDocker'
+        //mavenHOME = tool 'myMaven'
+        //PATH = "${dockerHOME}/bin:${mavenHOME}/bin:/usr/local/bin:${PATH}"//
+    }
+
     stages {
         stage('Build') {
             steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
-        
-        stage('SonarQube Analysis') {
+          stage('sonar') {
             steps {
-                withSonarQubeEnv('sonarqube') {
-                    sh 'mvn sonar:sonar'
-                }
+                withSonarQubeEnv('sonarqube'){
+                sh 'mvn sonae:sonar'
+				}
             }
         }
-        
-        stage('Docker Build Image') {
+        stage('docker build image') {
             steps {
                 script {
                     dockerImage = docker.build("kamalakar2210/hello-world-nodejs:${env.BUILD_TAG}")
                 }
             }
         }
-        
-        stage('Docker Push Image') {
+        stage('docker push image') {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
@@ -34,7 +38,6 @@ pipeline {
                 }
             }
         }
-        
         stage('Archive Artifacts') {
             steps {
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
