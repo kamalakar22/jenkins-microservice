@@ -12,6 +12,12 @@ pipeline {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
+          stage('sonar') {
+            steps {
+                withSonarQubeEnv('sonarqube)
+                sh 'mvn sonae:sonar'
+            }
+        }
         stage('docker build image') {
             steps {
                 script {
