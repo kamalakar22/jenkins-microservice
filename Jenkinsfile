@@ -3,20 +3,20 @@ pipeline {
     agent any
 
     environment {
-        PATH = "$PATH:/opt/maven/bin"
+        PATH = "C:\\maven\\bin;" + env.PATH
     }
 
     stages {
         stage('Build') {
             steps {
-                 sh 'mvn -B -DskipTests clean package'
+                bat 'mvn -B -DskipTests clean package'
             }
         }
-		stage('Archive Artifacts') {
+        stage('Archive Artifacts') {
             steps {
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
-		
     }
 }
+
