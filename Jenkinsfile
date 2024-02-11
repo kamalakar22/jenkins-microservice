@@ -1,4 +1,3 @@
-		
 pipeline {
     agent any
     environment {
@@ -6,7 +5,8 @@ pipeline {
         RELEASE = "1.0.0"
         DOCKER_USER = "kamalakar2210"
         DOCKER_PASS = 'reddy22@K'
-        IMAGE_NAME = "${DOCKER_USER}" + "/" + "${APP_NAME}"
+        DOCKER_REGISTRY_URL = "https://index.docker.io/v1/"
+        IMAGE_NAME = "${DOCKER_USER}/${APP_NAME}"
         IMAGE_TAG = "${RELEASE}-${BUILD_NUMBER}"
     }
     stages {
@@ -20,21 +20,16 @@ pipeline {
                 archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             }
         }
-	 stage("Build & Push Docker Image") {
+        stage("Build & Push Docker Image") {
             steps {
                 script {
-                    docker.withRegistry('',DOCKER_PASS) {
-                        docker_image = docker.build "${IMAGE_NAME}"
-                    }
-
-                    docker.withRegistry('',DOCKER_PASS) {
+                    docker.withRegistry("${DOCKER_REGISTRY_URL}", "${DOCKER_USER}", "${DOCKER_PASS}") {
+                        def docker_image = docker.build("${IMAGE_NAME}:${IMAGE_TAG}")
                         docker_image.push("${IMAGE_TAG}")
                         docker_image.push('latest')
                     }
                 }
             }
-
         }
     }
 }
-
