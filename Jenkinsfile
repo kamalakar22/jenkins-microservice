@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        PATH = "C:\\maven\\bin;" + env.PATH
+       PATH = "C:\\maven\\bin;" + "\"" + env.PATH + "\""
     }
 
     stages {
