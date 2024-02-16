@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_EXE_PATH = "\"C:\\Program Files\\Docker\\Docker\""
+        DOCKER_EXE_PATH = "C:\\Program Files\\Docker\\Docker"
         IMAGE_NAME = "kamalakar2210/hello-world-nodejs"
         IMAGE_TAG = "${env.BUILD_NUMBER}"
     }
