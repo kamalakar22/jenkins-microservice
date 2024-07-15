@@ -1,0 +1,8 @@
+name: Terraform azure CI/CD
+
+on:
+ push:
+  branches:
+    - main
+    
+  
